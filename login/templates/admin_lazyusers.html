@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Daily Reports</title>
+    <!-- Custom fonts for this template-->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="/static/css/sb-admin-2.css" rel="stylesheet">
+    <!-- <link href="css/sb-admin-2.min.css" rel="stylesheet"> -->
+    <link href="/static/css/common.css" rel="stylesheet">
+  </head>
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand" href="index.html">
+          <div class="sidebar-brand-icon">
+            <img src="/static/img/logo.png" alt="logo" class="img-fluid">
+          </div>
+          <!-- <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div> -->
+        </a>
+        <a class="sidebar-brand p-0" href="index.html">
+          <div class="sidebar-brand-icon">
+            <img src="/static/img/avatar.png" alt="logo" class="img-fluid main_img">
+          </div>
+          <div class="sidebar-brand p-0 mb-3"> Admin Name </div>
+        </a>
+        
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_home' %}">
+            <i class="fa fa-flag"></i>
+            <span>Daily Reports</span></a>
+          </li>
+          <!-- Heading -->
+          <!-- Nav Item - Pages Collapse Menu -->
+          <!--           <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Courses List </span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="py-2 collapse-inner rounded">
+                <a class="collapse-item" href="#">Syllabus</a>
+                <a class="collapse-item" href="#">Syllabus</a>
+                <a class="collapse-item" href="#">Syllabus</a>
+              </div>
+            </div>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin_feedback'%}">
+              <i class="fa fa-commenting"></i>
+              <span>Feedbacks</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin_users'%}">
+                <i class="fa fa-users"></i>
+                <span>Users</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'admin_lazyusers' %}">
+                  <i class="fa fa-users"></i>
+                  <span>Lazy Users</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'admin_leaves' %}">
+                    <i class="fa fa-file"></i>
+                    <span>Leaves</span></a>
+                </li>
+              </ul>
+              <!-- End of Sidebar -->
+              <!-- Content Wrapper -->
+              <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                  <!-- Begin Page Content -->
+                  <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="row pt-4 pb-4">
+                      <div class="col-md-6 col-lg-4">
+                        <h1 class="wlcome_text">Welcome, <span>Admin</span></h1>
+                      </div>
+                      <div class="col-md-6 col-lg-8 text-right custom_algn">
+                        <div class="input-search">
+                          <input id="datePicker" type="date" class="auto_date" />
+                          <span> <input type="text" placeholder="Search for Reports..." name=""> <a href=""> <i class="fas fa-search"></i></a> </span>
+                        </div>
+                        <!-- <div class="bell_icon">
+                          <i class="fa fa-bell-o"></i>
+                        </div> -->
+                        <div class="logout">
+
+                          <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Content Row -->
+                    <div class="top_text">
+                      <h2>Stepinn Daily Logs</h2>
+                    </div>
+                    <table class="table">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Department</th>
+                          <th scope="col">Times</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row"><a href="javascriptvoid:(0)" data-toggle="modal" data-target="#lazy">Manan</a></th>
+                          <td>Dummy</td>
+                          <td>10:20pm</td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="javascriptvoid:(0)" data-toggle="modal" data-target="#lazy">Umair</a></th>
+                          <td>Dummy</td>
+                          <td>10:20pm</td>
+                        </tr>
+                        <tr>
+                          <th scope="row"><a href="javascriptvoid:(0)" data-toggle="modal" data-target="#lazy">Kayyam</a></th>
+                          <td>Dummy</td>
+                          <td>10:20pm</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.container-fluid -->
+                </div>
+                <!-- End of Main Content -->
+              </div>
+              <!-- End of Content Wrapper -->
+            </div>
+            <!-- End of Page Wrapper -->
+            <!-- Scroll to Top Button-->
+            
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reports</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="input_grp">
+                      <label>Project</label>
+                      <input type="text" value="ipug" readonly="" class="form-control">
+                    </div>
+                    <div class="input_grp">
+                      <label>Description</label>
+                      <textarea class="form-control" placeholder="ipug responsive" rows="3" readonly=""></textarea>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+<div class="modal fade" id="lazy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Lazy User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input_grp">
+          <label>Manan</label>
+          <input type="text" class="form-control" placeholder="10:20pm" readonly="">
+        </div>
+        <div class="input_grp">
+          <label>Department</label>
+          <input type="text" class="form-control" placeholder="Ai" readonly="">
+        </div>
+        <div class="input_grp">
+          <label>Manan</label>
+          <input type="text" class="form-control" placeholder="10:20pm" readonly="">
+        </div>
+        <div class="input_grp">
+          <label>Description</label>
+          <textarea class="form-control" rows="3" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit." readonly=""></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+            <!-- Bootstrap core JavaScript-->
+            <script src="/static/vendor/jquery/jquery.min.js"></script>
+            <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="/static/js/sb-admin-2.min.js"></script>
+            <!-- Page level plugins -->
+            <script>
+            $(document).ready( function() {
+            var now = new Date();
+            
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+            $('#datePicker').val(today);
+            });
+            </script>
+          </body>
+        </html>

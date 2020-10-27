@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  
+    <title> User Profile </title>
+    <!-- Custom fonts for this template-->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="/static/css/sb-admin-2.css" rel="stylesheet">
+    <!-- <link href="css/sb-admin-2.min.css" rel="stylesheet"> -->
+    <link href="/static/css/common.css" rel="stylesheet">
+    <link href="/static/css/profile.css" rel="stylesheet">
+  </head>
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand" href="index.html">
+          <div class="sidebar-brand-icon">
+            <img src="/static/img/logo.png" alt="logo" class="img-fluid">
+          </div>
+          <!-- <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div> -->
+        </a>
+        <a class="sidebar-brand p-0" href="#">
+          <div class="sidebar-brand-icon">
+            <img src="/static/img/avatar.png" alt="logo" class="img-fluid main_img">
+          </div>
+          <div class="sidebar-brand p-0 mb-3"> Admin Name </div>
+        </a>
+        
+        <!-- Nav Item - Dashboard -->
+       
+          <li class="nav-item">
+            <a class="nav-link" href="user_home">
+              <i class="fa fa-flag"></i>
+              <span>Reports</span></a>
+            </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-commenting"></i>
+              <span>Feedback</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="user_profile">
+                <i class="fa fa-users"></i>
+                <span>Profile</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="user_leave">
+                  <i class="fa fa-users"></i>
+                  <span>Leave</span></a>
+                </li>
+            </ul>
+            <!-- End of Sidebar -->
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+              <!-- Main Content -->
+              <div id="content">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                  <!-- Page Heading -->
+                  <div class="row pt-4 pb-4">
+                    <div class="col-md-6 col-lg-4">
+                      <h1 class="wlcome_text"><span>Profile</span></h1>
+                    </div>
+                    <div class="col-md-6 col-lg-8 text-right custom_algn">             
+                      <div class="input-search">
+                        <span> <input type="text" placeholder="Search for Reports..." name=""> <a href=""> <i class="fas fa-search"></i></a> </span>
+                      </div>
+                      <!-- <div class="bell_icon">
+                        <i class="fa fa-bell-o"></i>
+                      </div> -->
+                      <!-- <form action={% url "logout" %} method="GET"> -->
+                        <div class="logout">
+                          <a href="{% url "logout" %}"><i class="fa fa-sign-out"></i></a>
+                        </div>
+                      <!-- </form>
+                       -->
+                    </div>
+                  </div>
+                  <!-- Content Row -->
+
+            <div class="page-content page-container" id="page-content">
+                <div class="padding">
+                    <div class="row container d-flex justify-content-center">
+                        <div class="col-md-12">
+                            <div class="card user-card-full">
+                                <div class="row m-l-0 m-r-0">
+                                    <div class="col-sm-4 bg-c-lite-green user-profile">
+                                        <div class="card-block text-center text-white">
+                                            <div class="m-b-25"> <img src="/static/img/avatar.png" class="img-radius" alt="User-Profile-Image"> </div>
+                                            <h6 class="f-w-600">{{name}}</h6>
+                                            <p>Web Designer</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="card-block">
+                                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p class="m-b-10 f-w-600">Email</p>
+                                                    <h6 class="text-muted f-w-400">{{email}}</h6>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="m-b-10 f-w-600">Phone</p>
+                                                    <h6 class="text-muted f-w-400">98979989898</h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p class="m-b-10 f-w-600">Join Date</p>
+                                                    <h6 class="text-muted f-w-400">5 Aug 2019</h6>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="m-b-10 f-w-600">Designation</p>
+                                                    <h6 class="text-muted f-w-400">Designer</h6>
+                                                </div>
+                                            </div>
+                                                
+                                        </div>
+                                        <div class="edit_btn">
+                                          <a href="{% url 'user_editprofile' %}" class="btn btn-primary">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+                  <!-- <div class="content">
+                    <div class="calendar-container">
+                      <div class="calendar">
+                        <div class="year-header">
+                          <span class="left-button" id="prev"> &lang; </span>
+                          <span class="year" id="label"></span>
+                          <span class="right-button" id="next"> &rang; </span>
+                        </div>
+                        <table class="months-table">
+                          <tbody>
+                            <tr class="months-row">
+                              <td class="month">Jan</td>
+                              <td class="month">Feb</td>
+                              <td class="month">Mar</td>
+                              <td class="month">Apr</td>
+                              <td class="month">May</td>
+                              <td class="month">Jun</td>
+                              <td class="month">Jul</td>
+                              <td class="month">Aug</td>
+                              <td class="month">Sep</td>
+                              <td class="month">Oct</td>
+                              <td class="month">Nov</td>
+                              <td class="month">Dec</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        
+                        <table class="days-table">
+                          <td class="day">Sun</td>
+                          <td class="day">Mon</td>
+                          <td class="day">Tue</td>
+                          <td class="day">Wed</td>
+                          <td class="day">Thu</td>
+                          <td class="day">Fri</td>
+                          <td class="day">Sat</td>
+                        </table>
+                        <div class="frame">
+                          <table class="dates-table">
+                            <tbody class="tbody">
+                            </tbody>
+                          </table>
+                        </div>
+                        <button class="button" id="add-button">Add Event</button>
+                      </div>
+                    </div>
+                    <div class="events-container">
+                    </div>
+                    <div class="dialog" id="dialog">
+                      <h2 class="dialog-header"> Add New Event </h2>
+                      <form class="form" id="form">
+                        <div class="form-container" align="center">
+                          <label class="form-label" id="valueFromMyButton" for="name">Event name</label>
+                          <input class="input" type="text" id="name" maxlength="36">
+                          <label class="form-label" id="valueFromMyButton" for="count">Number of people to invite</label>
+                          <input class="input" type="number" id="count" min="0" max="1000000" maxlength="7">
+                          <input type="button" value="Cancel" class="button" id="cancel-button">
+                          <input type="button" value="OK" class="button" id="ok-button">
+                        </div>
+                      </form>
+                    </div>
+                  </div> -->
+                </div>
+                <!-- /.container-fluid -->
+              </div>
+              <!-- End of Main Content -->
+            </div>
+            <!-- End of Content Wrapper -->
+          </div>
+          <!-- End of Page Wrapper -->
+          <!-- Scroll to Top Button-->
+          
+          <!-- Logout Modal-->
+          <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                  <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Bootstrap core JavaScript-->
+          <script src="/static/vendor/jquery/jquery.min.js"></script>
+          <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+          <!-- Custom scripts for all pages-->
+          <script src="/static/js/sb-admin-2.min.js"></script>
+          <!-- Page level plugins -->
+          <script>
+          // Setup the calendar with the current date
+          $(document).ready(function(){
+          var date = new Date();
+          var today = date.getDate();
+          // Set click handlers for DOM elements
+          $(".right-button").click({date: date}, next_year);
+          $(".left-button").click({date: date}, prev_year);
+          $(".month").click({date: date}, month_click);
+          $("#add-button").click({date: date}, new_event);
+          // Set current month as active
+          $(".months-row").children().eq(date.getMonth()).addClass("active-month");
+          init_calendar(date);
+          var events = check_events(today, date.getMonth()+1, date.getFullYear());
+          show_events(events, months[date.getMonth()], today);
+          });
+          // Initialize the calendar by appending the HTML dates
+          function init_calendar(date) {
+          $(".tbody").empty();
+          $(".events-container").empty();
+          var calendar_days = $(".tbody");
+          var month = date.getMonth();
+          var year = date.getFullYear();
+          var day_count = days_in_month(month, year);
+        var row = $("<tr class='table-row'></tr>");
+        var today = date.getDate();
+        // Set date to 1 to find the first day of the month
+        date.setDate(1);
+        var first_day = date.getDay();
+        // 35+firstDay is the number of date elements to be added to the dates table
+        // 35 is from (7 days in a week) * (up to 5 rows of dates in a month)
+        for(var i=0; i<35+first_day; i++) {
+        // Since some of the elements will be blank,
+        // need to calculate actual date from index
+        var day = i-first_day+1;
+        // If it is a sunday, make a new row
+        if(i%7===0) {
+        calendar_days.append(row);
+      row = $("<tr class='table-row'></tr>");
+      }
+      // if current index isn't a day in this month, make it blank
+      if(i < first_day || day > day_count) {
+      var curr_date = $("<td class='table-date nil'>"+"</td>");
+      row.append(curr_date);
+      }
+      else {
+      var curr_date = $("<td class='table-date'>"+day+"</td>");
+      var events = check_events(day, month+1, year);
+      if(today===day && $(".active-date").length===0) {
+      curr_date.addClass("active-date");
+      show_events(events, months[month], day);
+      }
+      // If this date has any events, style it with .event-date
+      if(events.length!==0) {
+      curr_date.addClass("event-date");
+      }
+      // Set onClick handler for clicking a date
+      curr_date.click({events: events, month: months[month], day:day}, date_click);
+      row.append(curr_date);
+      }
+      }
+      // Append the last row and set the current year
+      calendar_days.append(row);
+      $(".year").text(year);
+      }
+      // Get the number of days in a given month/year
+      function days_in_month(month, year) {
+      var monthStart = new Date(year, month, 1);
+      var monthEnd = new Date(year, month + 1, 1);
+      return (monthEnd - monthStart) / (1000 * 60 * 60 * 24);
+      }
+      // Event handler for when a date is clicked
+      function date_click(event) {
+      $(".events-container").show(250);
+      $("#dialog").hide(250);
+      $(".active-date").removeClass("active-date");
+      $(this).addClass("active-date");
+      show_events(event.data.events, event.data.month, event.data.day);
+      };
+      // Event handler for when a month is clicked
+      function month_click(event) {
+      $(".events-container").show(250);
+      $("#dialog").hide(250);
+      var date = event.data.date;
+      $(".active-month").removeClass("active-month");
+      $(this).addClass("active-month");
+      var new_month = $(".month").index(this);
+      date.setMonth(new_month);
+      init_calendar(date);
+      }
+      // Event handler for when the year right-button is clicked
+      function next_year(event) {
+      $("#dialog").hide(250);
+      var date = event.data.date;
+      var new_year = date.getFullYear()+1;
+      $("year").html(new_year);
+      date.setFullYear(new_year);
+      init_calendar(date);
+      }
+      // Event handler for when the year left-button is clicked
+      function prev_year(event) {
+      $("#dialog").hide(250);
+      var date = event.data.date;
+      var new_year = date.getFullYear()-1;
+      $("year").html(new_year);
+      date.setFullYear(new_year);
+      init_calendar(date);
+      }
+      // Event handler for clicking the new event button
+      function new_event(event) {
+      // if a date isn't selected then do nothing
+      if($(".active-date").length===0)
+      return;
+      // remove red error input on click
+      $("input").click(function(){
+      $(this).removeClass("error-input");
+      })
+      // empty inputs and hide events
+      $("#dialog input[type=text]").val('');
+      $("#dialog input[type=number]").val('');
+      $(".events-container").hide(250);
+      $("#dialog").show(250);
+      // Event handler for cancel button
+      $("#cancel-button").click(function() {
+      $("#name").removeClass("error-input");
+      $("#count").removeClass("error-input");
+      $("#dialog").hide(250);
+      $(".events-container").show(250);
+      });
+      // Event handler for ok button
+      $("#ok-button").unbind().click({date: event.data.date}, function() {
+      var date = event.data.date;
+      var name = $("#name").val().trim();
+      var count = parseInt($("#count").val().trim());
+      var day = parseInt($(".active-date").html());
+      // Basic form validation
+      if(name.length === 0) {
+      $("#name").addClass("error-input");
+      }
+      else if(isNaN(count)) {
+      $("#count").addClass("error-input");
+      }
+      else {
+      $("#dialog").hide(250);
+      console.log("new event");
+      new_event_json(name, count, date, day);
+      date.setDate(day);
+      init_calendar(date);
+      }
+      });
+      }
+      // Adds a json event to event_data
+      function new_event_json(name, count, date, day) {
+      var event = {
+      "occasion": name,
+      "invited_count": count,
+      "year": date.getFullYear(),
+      "month": date.getMonth()+1,
+      "day": day
+      };
+      event_data["events"].push(event);
+      }
+      // Display all events of the selected date in card views
+      function show_events(events, month, day) {
+      // Clear the dates container
+      $(".events-container").empty();
+      $(".events-container").show(250);
+      console.log(event_data["events"]);
+      // If there are no events for this date, notify the user
+      if(events.length===0) {
+      var event_card = $("<div class='event-card'></div>");
+      var event_name = $("<div class='event-name'>There are no events planned for "+month+" "+day+".</div>");
+      $(event_card).css({ "border-left": "10px solid #FF1744" });
+      $(event_card).append(event_name);
+      $(".events-container").append(event_card);
+      }
+      else {
+      // Go through and add each event as a card to the events container
+      for(var i=0; i<events.length; i++) {
+      var event_card = $("<div class='event-card'></div>");
+      var event_name = $("<div class='event-name'>"+events[i]["occasion"]+":</div>");
+      var event_count = $("<div class='event-count'>"+events[i]["invited_count"]+" Invited</div>");
+      if(events[i]["cancelled"]===true) {
+      $(event_card).css({
+      "border-left": "10px solid #FF1744"
+      });
+      event_count = $("<div class='event-cancelled'>Cancelled</div>");
+      }
+      $(event_card).append(event_name).append(event_count);
+      $(".events-container").append(event_card);
+      }
+      }
+      }
+      // Checks if a specific date has any events
+      function check_events(day, month, year) {
+      var events = [];
+      for(var i=0; i<event_data["events"].length; i++) {
+      var event = event_data["events"][i];
+      if(event["day"]===day &&
+      event["month"]===month &&
+      event["year"]===year) {
+      events.push(event);
+      }
+      }
+      return events;
+      }
+      // Given data for events in JSON format
+      var event_data = {
+      "events": [
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10,
+      "cancelled": true
+      },
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10,
+      "cancelled": true
+      },
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10,
+      "cancelled": true
+      },
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10
+      },
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10,
+      "cancelled": true
+      },
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10
+      },
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10,
+      "cancelled": true
+      },
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10
+      },
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10,
+      "cancelled": true
+      },
+      {
+      "occasion": " Repeated Test Event ",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 10
+      },
+      {
+      "occasion": " Test Event",
+      "invited_count": 120,
+      "year": 2017,
+      "month": 5,
+      "day": 11
+      }
+      ]
+      };
+      const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+      ];
+      </script>
+    </body>
+  </html>

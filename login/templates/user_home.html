@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title> User Home </title>
+		<!-- Custom fonts for this template-->
+		<link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+		<!-- Custom styles for this template-->
+		<link href="/static/css/sb-admin-2.css" rel="stylesheet">
+		<!-- <link href="css/sb-admin-2.min.css" rel="stylesheet"> -->
+		<link href="/static/css/common.css" rel="stylesheet">
+	</head>
+	<body id="page-top">
+		<!-- Page Wrapper -->
+		<div id="wrapper">
+			<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+				<!-- Sidebar - Brand -->
+				<a class="sidebar-brand" href="/static/index.html">
+					<div class="sidebar-brand-icon">
+						<img src="/static/img/logo.png" alt="logo" class="img-fluid">
+					</div>
+					<!-- <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div> -->
+				</a>
+				<a class="sidebar-brand p-0" href="user_profile">
+					<div class="sidebar-brand-icon">
+						<img src="/static/img/avatar.png" alt="logo" class="img-fluid main_img">
+					</div>
+					<div class="sidebar-brand p-0 mb-3"> User Name </div>
+				</a>
+				
+				<!-- Nav Item - Dashboard -->
+				<li class="nav-item active">
+					<a class="nav-link" h ref="#">
+						<i class="fa fa-flag"></i>
+						<span>Reports</span></a>
+				</li>
+		
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						<i class="fa fa-commenting"></i>
+						<span>Feedback</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="user_profile">
+						<i class="fa fa-users"></i>
+						<span>Profile</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="user_leave">
+					<i class="fa fa-users"></i>
+					<span>Leave</span></a>
+				</li>
+			</ul>
+			<div id="content-wrapper" class="d-flex flex-column">
+					<!-- Main Content -->
+				<div id="content">
+						<!-- Begin Page Content -->
+					<div class="container-fluid">
+							<!-- Page Heading -->
+							<div class="row pt-4 pb-4">
+								<div class="col-md-6 col-lg-6">
+									<h1 class="wlcome_text">Welcome, <span>{{name}}</span></h1>
+								</div>
+								<div class="col-md-6 col-lg-6 text-right custom_algn">  
+									<div class="input-search">
+										<input id="datePicker" type="text" class="auto_date"  readonly />
+										<span> <input type="text" placeholder="Search for Reports..." name=""> <a href=""> <i class="fas fa-search"></i></a> </span>
+									</div>
+									<form action={% url "logout" %} method="GET>">
+										<div class="logout">
+											<a href="{% url "logout" %}"><i class="fa fa-sign-out"></i></a>
+										</div>
+									</form>
+								</div>
+							</div>
+							<!-- Content Row -->
+
+							<div class="top_text">
+								<h2>Stepinn Daily Logs</h2>
+							</div>
+					</div>		
+					<!-- form starts from here-->
+					<!-- {% for field in formm %}
+					<input 
+					type="{{field.field.widget.input_type}}"
+				
+					name="{{field.name}}"
+					id="id_{{field.name}}"
+				
+					{% if field.field.required %}
+					placeholder="{{field.label}}: required"
+					{% elif field.name == 'Datejoined' %}
+					placeholder="{{field.label}}: yyyy/mm/dd"
+					{% else %}
+					placeholder="{{field.label}}"
+					{% endif %}
+				>
+					{% endfor %}
+					 -->
+<!-- 
+				
+							{% csrf_token %}
+						
+							<input type="text" name="userName">
+							<input type="text" name="projectName">
+							<input type="text" name="projectDescription">
+							<input type="text" name="projectFeedback">
+							<button type="submit">sbmit</button>
+					</form> -->
+					<form action="{% url 'user_home' %}" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-md-7">
+								<div class="reports">
+									<div class="report_title">
+										<h4>Report</h4>
+									</div>
+									<div class="append_items">
+										<div class="input_grp">			
+											<label>Project</label>
+											<!-- <input type="date" value="{date}"> -->
+											<input name="time" type="text" id="timee" hidden>
+											<input name="date" type="date" id="todaydate"  min="1997-01-01" max="2030-12-12" hidden>
+											<!-- <label id="today">date:</label> -->
+											<!-- <script>var dt = new Date(); -->
+												<!-- document.getElementById("todaydate").value= dt.toDateString(); -->
+											<!-- </script> -->
+											<input type="text" name="user" value="{{name}}" hidden>
+											
+											<input type="text" class="form-control" placeholder="" name="name" required>
+										</div>
+										<div class="input_grp">
+											<label>Description</label>
+											<textarea class="form-control" rows="3" name="description" required></textarea>
+										</div>
+									</div>
+										<button  type="submit" class="btn btn-primary">Save</button>
+										<!-- <button type="submit" class="btn btn-primary">MySave</button> -->
+									<div class="add_more">
+										<button type="button" id="more_project" class="btn btn-primary">Add more Projects</button>
+									</div>
+								
+								</div>
+							</div>
+
+							<div class="col-md-5">
+								<div class="reports">
+									<div class="feedback_title">
+										<h4>Feedback</h4>
+									</div>
+									<div class="input_grp">
+											<label>Enter Your Feedback</label>
+											<textarea class="form-control" name="feedback"  rows="3" required></textarea>
+									</div>
+								</div>
+							</div>
+						</div>	
+								
+					</form>	
+					<!-- form ends here-->
+
+
+					<div class="action_btn">
+						<button type="button" class="btn btn-secondary" onclick="discard();">Discard</button>
+					</div>
+				</div>			<!-- /.container-fluid -->
+			</div>
+		</div>
+				
+					
+		<!-- Bootstrap core JavaScript-->
+		<script src="/static/vendor/jquery/jquery.min.js"></script>
+		<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- Custom scripts for all pages-->
+		<script src="/static/js/sb-admin-2.min.js"></script>
+		<!-- Page level plugins -->
+		<script>
+			function discard(){
+				location.reload();
+			}
+		
+
+			$(document).ready( function() {
+			var d = new Date();
+			var dtime =  (String(d.getHours())+":"+String(d.getMinutes())+":"+String(d.getSeconds()));
+			console.log(dtime);
+			$('#timee').val((dtime));
+
+
+
+
+			var now = new Date();
+			var day = ("0" + now.getDate()).slice(-2);
+			var month = ("0" + (now.getMonth() + 1)).slice(-2);
+			var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+			$('#datePicker').val(today);
+			$('#todaydate').val(today);
+			});
+		</script>
+		<script>
+			$('#more_project').click(function() {
+				/* Act on the event */
+				$('.append_items').append('<div class="input_grp"><label>Project</label><input type="text" class="form-control"></div><div class="input_grp"><label>Description</label><textarea class="form-control" rows="3"></textarea></div>');
+			});
+		</script>
+
+	</body>
+</html>

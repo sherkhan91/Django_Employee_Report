@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="end">
+    <head>
+        <meta charset="UTF-8">
+        <title>Profile</title>
+        {% load static %}
+        {% load crispy_forms_tags %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    </head>
+   
+    <body style="background-color: lightblue;">
+        {{message}}
+    
+        <center><h3>{{a}} Profile</h3></center>
+        {% block content %}
+        
+        <center><label>Welcome to profile page</label></center>
+        <center><img src="/media/{{imageurl}}" alt="user profile pic" style="height: 200px; width: 200px;"></center>
+          
+            <!-- <img src="{% static "logo.png" %}" alt="company logo"> -->
+        {% endblock %}
+        <form action="/login/" method="GET">
+            <input type="submit" class="btn" value="Logout" name="logoutbtn">
+        </form>
+    </body>
+
+   
+    <!-- <img src="{% static "logo.png" %}" alt="My image"> -->
+
+</html>
+
+

@@ -1,0 +1,12 @@
+department
+designation
+salary
+image file
+phone number
+Credential if any: edit text box
+
+------------
+user edit form, joining date and user name, non editable 
+-----------
+user home page
+
