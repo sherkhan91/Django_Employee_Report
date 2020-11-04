@@ -13,8 +13,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="/static/css/sb-admin-2.css" rel="stylesheet">
-    <!-- <link href="css/sb-admin-2.min.css" rel="stylesheet"> -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="/static/css/common.css" rel="stylesheet">
+    <link href="/static/css/addemployee.css" rel="stylesheet">
+   
+
   </head>
   <body id="page-top">
     <!-- Page Wrapper -->
@@ -37,32 +40,18 @@
         
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'admin_home' %}">
+          <a class="nav-link" href="{% url 'admin_home'%}">
             <i class="fa fa-flag"></i>
             <span>Daily Reports</span></a>
           </li>
-          <!-- Heading -->
-          <!-- Nav Item - Pages Collapse Menu -->
-          <!--           <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-graduation-cap"></i>
-              <span>Courses List </span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Syllabus</a>
-                <a class="collapse-item" href="#">Syllabus</a>
-                <a class="collapse-item" href="#">Syllabus</a>
-              </div>
-            </div>
-          </li> -->
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'admin_feedback'%}">
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin_feedback' %}">
               <i class="fa fa-commenting"></i>
               <span>Feedbacks</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'admin_users'%}">
+            <li class="nav-item ">
+              <a class="nav-link" href="{% url 'admin_users' %}">
                 <i class="fa fa-users"></i>
                 <span>Users</span></a>
               </li>
@@ -72,11 +61,11 @@
                   <span>Lazy Users</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'admin_leaves' %}">
-                    <i class="fa fa-file"></i>
-                    <span>Leaves</span></a>
+                <a class="nav-link" href="{% url 'admin_leaves' %}">
+                  <i class="fa fa-file"></i>
+                  <span>Leaves</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                   <a class="nav-link" href="{% url 'admin_addemployee' %}">
                     <i class="fa fa-file"></i>
                     <span>Add Employee</span></a>
@@ -95,48 +84,91 @@
                         <h1 class="wlcome_text">Welcome, <span>Admin</span></h1>
                       </div>
                       <div class="col-md-6 col-lg-8 text-right custom_algn">
-                        <div class="input-search">
-                          <input id="datePicker" type="date" class="auto_date" />
-                          <span> <input type="text" placeholder="Search for Reports..." name=""> <a href=""> <i class="fas fa-search"></i></a> </span>
-                        </div>
+                        
                         <!-- <div class="bell_icon">
                           <i class="fa fa-bell-o"></i>
                         </div> -->
                         <div class="logout">
 
-                          <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i></a>
+                         <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i></a> 
                         </div>
                       </div>
                     </div>
                     <!-- Content Row -->
-                    <div class="top_text">
-                      <h2>Stepinn Daily Logs</h2>
+                 
+
+
+                    <div class="user_options-forms bounceLeft" id="user_options-forms">
+                      
+                      <div class="user_forms-signup">
+                       
+                      <form action="" method="POST" class="forms_form" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      {% if form.subject.erros %}
+                      <ol role="alertdialog">
+                        {% for error in error.subject.erros %}
+                        <li role="alert"><strong>{{error|escape}}</strong></li>
+                        {% endfor %}
+                      </ol>
+                      {% endif %}
+                      <!-- {%if form.non_field_erros %}
+                      {% for errors in form.non_field_errors %}
+                      <p class="er">{{errors}}</p>
+                      {% endfor %}
+                      {% endif %} -->
+                      
+                      <!-- {{ fm.label_tag }}{{ fm }}{{ fm.errors|striptags }}<br> <br> -->
+                      
+                          <fieldset class="forms_fieldset">
+                      {% for field in form %}
+                          <!-- <div class="forms_field"> 
+                          <div class="fieldWrapper forms_field-input" aria-required={% if field.field.required %}"true" {% else %}"false"{% endif %}>
+                            {{ field.label_tag}}{% if field.field.required %} <span class="required">*</span>{% endif %}
+                            {{field}}{{field.field.placeholder}}{{field.errors|striptags }}
+                          </div>
+                        </div> -->
+              
+                        <div class="forms_field">
+                          
+                          <!-- <span class="required">*</span> -->
+                            
+                          <input 
+                            type="{{field.field.widget.input_type}}"
+                            class="forms_field-input fieldWrapper"
+                            name="{{field.name}}"
+                            id="id_{{field.name}}"
+                          
+                            {% if field.field.required %}
+                            placeholder="{{field.label}}: required"
+                            {% elif field.name == 'Datejoined' %}
+                            placeholder="{{field.label}}: yyyy/mm/dd"
+                            {% else %}
+                            placeholder="{{field.label}}"
+                            {% endif %}
+                          >
+                          {{field.errors|striptags}}
+                        </div>
+              
+              
+                      {% endfor %}
+              
+                          </fieldset>
+                          <div class="forms_buttons">
+                            <input type="submit" value="Add Employee" class="forms_buttons-action">
+                          </div>
+                        </form>
+
+
+                      </div>
+
+
                     </div>
-                    <table class="table">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th scope="col">Name</th>
-                          <th scope="col">Feedback</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tablebody">
-                        <!-- <tr>
-                          
-                          <td><a href="#">Mark</a></td>
-                          <th scope="row">Dummy Dummy Dummy Dummy Dummy Dummy</th>
-                        </tr>
-                        <tr>
-                          
-                          <td><a href="#">Jacob</a></td>
-                          <th scope="row">Dummy Dummy Dummy Dummy Dummy Dummy</th>
-                        </tr>
-                        <tr>
-                          
-                          <td><a href="#">Larry</a></td>
-                          <th scope="row">Dummy Dummy Dummy Dummy Dummy Dummy</th>
-                        </tr> -->
-                      </tbody>
-                    </table>
+                   
+
+
+
+
+
                   </div>
                   <!-- /.container-fluid -->
                 </div>
@@ -147,32 +179,7 @@
             <!-- End of Page Wrapper -->
             <!-- Scroll to Top Button-->
             
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Reports</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="input_grp">
-                      <label>Project</label>
-                      <input type="text" value="ipug" readonly="" class="form-control">
-                    </div>
-                    <div class="input_grp">
-                      <label>Description</label>
-                      <textarea class="form-control" placeholder="ipug responsive" rows="3" readonly=""></textarea>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                  </div>
-                </div>
-              </div>
-            </div>
+     
             <!-- Bootstrap core JavaScript-->
             <script src="/static/vendor/jquery/jquery.min.js"></script>
             <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -180,22 +187,6 @@
             <script src="/static/js/sb-admin-2.min.js"></script>
             <!-- Page level plugins -->
             <script>
-             var mylist = {{feedback|safe}};
-              console.log(mylist[0]);
-              console.log(mylist[1])
-              html = "";
-            window.addEventListener("load", function(){
-              for(i=0;i<mylist[0].length;i++){
-              html += '<tr>'+
-              '<td>'+mylist[0][i]+'</td>'+
-              '<td>'+mylist[1][i]+'</td>'+
-              '</tr>';
-            }
-            document.getElementById('tablebody').innerHTML += html;
-            });
-           
-              
-
             $(document).ready( function() {
             var now = new Date();
             

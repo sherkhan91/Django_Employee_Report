@@ -1,17 +1,60 @@
 from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
-from signup.models import ProfileImage
+
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import AuthenticationForm
-from  signup.forms import ProfileForm 
+from .models import ProfileImage
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
 from .forms import UserReport
 from .models import UserReportModel
+from django.contrib.auth.models import User 
+from .models import Employee
 import json
+from datetime import datetime
+from .forms import ProfileForm
+import time
 
 # Create your views here.
 
+def profileimage(request):
+    form = ProfileImage()
+    return render(request, 'profileimage.html',{'form':form})
+
+def admin_addemployee(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        data = request.POST
+        print(data)
+
+        if form.is_valid():
+            print("yes form is valid")
+            # form.save()
+            # time.sleep(10)
+            uname =  form['username'].value()
+            print("here is the user name from original table: -----",uname)
+            department =  form['department'].value()
+            designation =  form['designation'].value()
+            myimage = form.cleaned_data.get('image')
+            print("berofre im here")
+            uid = User.objects.get(username=uname).pk
+            print("here is the uid: ----",uid)
+            print("After im here")
+            obj = Employee.objects.get(user_id=uid)
+            print("okay finally got the user id--------", uid)
+            obj.department =  department
+            obj.designation = designation
+            obj.image = myimage
+            obj.save()
+            # messages.success(request, "employee account has been successfully created")
+        else:
+            print("Sorry form is invalid")
+    else:
+        form =  ProfileForm()
+    return render(request,'addemployee.html',{'form':form})
+
+
 def index(request):
+    print("this is where im looking for something")
     if not request.user.is_authenticated:
         if request.method == 'POST':
             form = AuthenticationForm(request=request, data=request.POST)
@@ -20,6 +63,7 @@ def index(request):
                 name = form.cleaned_data['username']
                 passw = form.cleaned_data['password']
                 user = authenticate(username=name, password=passw)
+                
                 if user is not None and user.is_superuser:
                     login(request, user)
                     # returnval =  HttpResponseRedirect("user_profile")
@@ -33,7 +77,6 @@ def index(request):
         return render(request, 'c_login.html', {'form':form})
     else:
         return HttpResponseRedirect('user_home')
-
 
 """
 def index(request):
@@ -95,15 +138,24 @@ def user_profile(request):
         return redirect('index')
     else:
         users = ProfileForm(instance=request.user)
-        return render(request,'user_profile.html',{'name':request.user.username,'email':request.user.email})
+        print("this is date joined:",request.user.date_joined)
+        date_joined = request.user.date_joined
+        # date_joined =  datetime.strptime(str(request.user.date_joined),'%Y-%m-%d')
+        designation= "Python Developer" 
+        join_date = str(date_joined.date())
+        # print(date_joined.date())
+        return render(request,'user_profile.html',{'name':request.user.username,'email':request.user.email,'join_date':join_date})
     # return HttpResponse("hello")
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='index')
 def user_home(request):
+    
     print("hello")
     if not request.user.is_authenticated:
         return redirect('index')
+    elif request.user.is_superuser:
+        return redirect('admin_home')
     else:
         if request.method == 'POST':
             data =  request.POST
@@ -130,7 +182,6 @@ def user_leave(request):
         return render(request,'user_leave.html')
     
 
-
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='index')
 def user_editprofile(request):
@@ -139,14 +190,15 @@ def user_editprofile(request):
     else:
         return render(request,'user_editprofile.html')      
 
-from datetime import datetime
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='index')
 def admin_home(request):
+    # return redirect('logout')
     if not request.user.is_authenticated:
         return redirect('index')
     elif request.user.is_superuser == True:
-        print("yes i'm admin ")
+        # print("yes i'm admin ")
         stime = '14:00:22:123456'
         etime = '18:00:22:123456'
         # from datetime import datetime
@@ -156,7 +208,7 @@ def admin_home(request):
         choosedate = '2020-10-26'
         todaysDate      = datetime.today().strftime('%Y-%m-%d')
         print('todays date:',todaysDate)  # get todays date
-        entry =  UserReportModel.objects.filter(date=choosedate).filter(time__range=['14:00[:00[.232323]]','23:10[:00[.232323]]'])
+        entry =  UserReportModel.objects.filter(date=choosedate).filter(time__range=['09:00[:00[.232323]]','23:10[:00[.232323]]'])
         # entry =  UserReportModel.objects.filter(date=yesterday).filter(time__range=['14:00[:00[.232323]]','23:10[:00[.232323]]'])
         # entry =  UserReportModel.objects.filter(date=datetime.date(datetime.now())).filter(time__range=['14:00[:00[.232323]]','23:10[:00[.232323]]'])
 
@@ -164,7 +216,7 @@ def admin_home(request):
         pnames = []
         pdescriptions = []
         ptimes = []
-        print("done with it")
+        # print("done with it")
         # from django.utils import simplejson
         for i in range(len(entry)):
             users.append(entry[i].user)
@@ -196,11 +248,7 @@ def admin_feedback(request):
             feedbacks.append(str(entry[i]))
 
         feedback = json.dumps([users,feedbacks])
-
         print(feedback)
-        # detaillist = json.dumps([users,pnames,ptimes,pdescriptions])
-        # context = {'users':users,'pnames':pnames,'pdescriptions':pdescriptions,'ptimes':ptimes}
-        # return render(request,'admin_home.html',{'detaillist':detaillist})
 
         return render(request,'admin_feedback.html',{'feedback':feedback})
     else:
@@ -231,15 +279,51 @@ def admin_users(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='index')
 def admin_lazyusers(request):
+    print("yes im here...")
     if not request.user.is_authenticated:
         return redirect('index')
     elif request.user.is_superuser == True:
-        return render(request,'admin_lazyusers.html')
+        todaysDate = datetime.today().strftime('%Y-%m-%d')
+        startTime = '14:00[:00[.001122]]'
+        endTime = '23:00[:00[.002233]]'
+        choosenDate = '2020-10-26'
+        names = []
+        dummyDepartment = []
+        times = []
+        entry =  UserReportModel.objects.values_list('user','date','time').filter(date=choosenDate).filter(time__range=['09:00[:00[.232323]]','23:10[:00[.232323]]'])
+        # entry =  UserReportModel.objects.values_list('feedback',flat=True)
+        # entry = UserReportModel.objects.filter(date=choosenDate).filter(time__range=[startTime,endTime])
+        
+        print("length of ------- entry:", len(entry))
+        for i in range(len(entry)):
+            print(entry[i][0],entry[i][1], entry[i][2])
+            names.append(str(entry[i][0]))
+            dummyDepartment.append("Dummy Department")
+            times.append(str(entry[i][2]))
+        lazyuser = [names, dummyDepartment, times] 
+        lazyusers = json.dumps(lazyuser)
+        return render(request,'admin_lazyusers.html',{'lazyusers':lazyusers})
     else:
         return redirect('logout')
 
+def admin_addemployeereal(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        data = request.POST
+        print(data)
+
+        if form.is_valid():
+            print("yes form is valuid")
+            form.save()
+            messages.success(request, "employee account has been successfully created")
+        else:
+            print("Sorry form is invalid")
+    else:
+        form =  ProfileForm()
+    return render(request,'addemployee.html',{'form':form})
 
 def checkdatabase(request):
+
     entry = UserReportModel.objects.get(pk=1)
     print(entry)
     return HttpResponse("this is a check")
@@ -248,8 +332,6 @@ def index(request):
     form =  AuthenticationForm()
     return render(request, 'loginm.html', {'form':form})
 """
-
-
 
 
 """

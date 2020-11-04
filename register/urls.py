@@ -25,7 +25,6 @@ from register import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('signup/', include('signup.urls')),
     path('login/', include('login.urls')),
 ]
 if settings.DEBUG:

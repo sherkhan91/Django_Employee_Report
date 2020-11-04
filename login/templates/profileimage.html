@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="end">
+    <head>
+        <meta charset="UTF-8">
+        <title>Profile Image</title>
+        {% load static %}
+        {% load crispy_forms_tags %}
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    </head>
+    <body style="background-color: lightblue; margin-left: 40%;">
+       
+        
+        <img src="{% static "logo.png" %}" alt="company logo"><br><br>
+        <label>Please provide your user name and password</label><br>
+            
+           
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{message}}<br>
+
+                {% for field in form %}
+                {{field}}
+
+                
+            
+                <button type="submit" class="btn btn-success">Submit</button>    
+                {% endfor %}
+            
+            </form>
+    </body>
+
+   
+    <!-- <img src="{% static "logo.png" %}" alt="My image"> -->
+  
+</html>
+
+

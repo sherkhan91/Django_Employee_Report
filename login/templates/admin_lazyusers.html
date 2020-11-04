@@ -41,21 +41,7 @@
             <i class="fa fa-flag"></i>
             <span>Daily Reports</span></a>
           </li>
-          <!-- Heading -->
-          <!-- Nav Item - Pages Collapse Menu -->
-          <!--           <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-graduation-cap"></i>
-              <span>Courses List </span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Syllabus</a>
-                <a class="collapse-item" href="#">Syllabus</a>
-                <a class="collapse-item" href="#">Syllabus</a>
-              </div>
-            </div>
-          </li> -->
+          
           <li class="nav-item">
             <a class="nav-link" href="{% url 'admin_feedback'%}">
               <i class="fa fa-commenting"></i>
@@ -75,6 +61,11 @@
                   <a class="nav-link" href="{% url 'admin_leaves' %}">
                     <i class="fa fa-file"></i>
                     <span>Leaves</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'admin_addemployee' %}">
+                    <i class="fa fa-file"></i>
+                    <span>Add Employee</span></a>
                 </li>
               </ul>
               <!-- End of Sidebar -->
@@ -115,7 +106,7 @@
                           <th scope="col">Times</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="tablebody">
                         <tr>
                           <th scope="row"><a href="javascriptvoid:(0)" data-toggle="modal" data-target="#lazy">Manan</a></th>
                           <td>Dummy</td>
@@ -143,34 +134,29 @@
             <!-- End of Page Wrapper -->
             <!-- Scroll to Top Button-->
             
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Reports</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="input_grp">
-                      <label>Project</label>
-                      <input type="text" value="ipug" readonly="" class="form-control">
-                    </div>
-                    <div class="input_grp">
-                      <label>Description</label>
-                      <textarea class="form-control" placeholder="ipug responsive" rows="3" readonly=""></textarea>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                  </div>
-                </div>
-              </div>
-            </div>
+          <script>
+
+            var data = {{lazyusers|safe}};
+            console.log(data)
+           
+            window.addEventListener("load", function (){
+              var html = "";
+              for(i=0;i<data[0].length;i++){
+                html += "<tr>";
+                html += "<th scope='row'>"+"<a href='javascriptvoid:(0)' data-toggle='modal' data-target='#lazy'>"+data[0][i]+"</a></th>";
+                html +=  "<td>"+data[1][i]+"</td>";
+                html +=  "<td>"+data[2][i]+"</td>";
+                html +=   "</tr>";
+     
+                }
+            document.getElementById('tablebody').innerHTML  = html;
+                
+            });
+          
+          </script>
 
 
+            <!-- Modal to show more details-->
 <div class="modal fade" id="lazy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -182,15 +168,15 @@
       </div>
       <div class="modal-body">
         <div class="input_grp">
-          <label>Manan</label>
-          <input type="text" class="form-control" placeholder="10:20pm" readonly="">
+          <label>User</label>
+          <input type="text" class="form-control" placeholder="user name" readonly="">
         </div>
         <div class="input_grp">
           <label>Department</label>
           <input type="text" class="form-control" placeholder="Ai" readonly="">
         </div>
         <div class="input_grp">
-          <label>Manan</label>
+          <label>Time</label>
           <input type="text" class="form-control" placeholder="10:20pm" readonly="">
         </div>
         <div class="input_grp">
@@ -205,21 +191,51 @@
   </div>
 </div>
 
-            <!-- Bootstrap core JavaScript-->
-            <script src="/static/vendor/jquery/jquery.min.js"></script>
-            <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <!-- Custom scripts for all pages-->
-            <script src="/static/js/sb-admin-2.min.js"></script>
-            <!-- Page level plugins -->
-            <script>
-            $(document).ready( function() {
-            var now = new Date();
-            
-            var day = ("0" + now.getDate()).slice(-2);
-            var month = ("0" + (now.getMonth() + 1)).slice(-2);
-            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-            $('#datePicker').val(today);
-            });
-            </script>
-          </body>
-        </html>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin-2.min.js"></script>
+    <!-- Page level plugins -->
+    <script>
+    $(document).ready( function() {
+    var now = new Date();
+    
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+    $('#datePicker').val(today);
+    });
+    </script>
+
+<!-- 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reports</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input_grp">
+          <label>Project</label>
+          <input type="text" value="ipug" readonly="" class="form-control">
+        </div>
+        <div class="input_grp">
+          <label>Description</label>
+          <textarea class="form-control" placeholder="ipug responsive" rows="3" readonly=""></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+  </body>
+</html>
