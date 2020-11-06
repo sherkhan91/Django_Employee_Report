@@ -1,5 +1,7 @@
 from django.urls import path
 from login import views 
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -17,10 +19,12 @@ urlpatterns = [
     path('admin_lazyusers', views.admin_lazyusers, name="admin_lazyusers"),
     path('admin_addemployee', views.admin_addemployee, name="admin_addemployee"),
     path('checkdatabase', views.checkdatabase, name="checkdatabase"),
-    path('profileimage', views.profileimage, name="profileimage"),
+    path('profileimg', views.profileimg, name="profileimg"),
  
     
     # path('profile/<int:year>/', views.profile, name="profile"),
     # path('profile/<int:year>/<str:strr>', views.profile, name="profile"),
     # path('profile/', views., name="profile"),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

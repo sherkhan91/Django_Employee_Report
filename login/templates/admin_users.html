@@ -124,25 +124,26 @@
                       <tbody>
                         <tr>
                           <th scope="row"><img src="/static/img/avatar.png" class="tbl_img" alt=""></th>
-                          <td><a href="#">Mark</a></td>
-                          <td>Dummy</td>
-                          <td>Dummy</td>
-                          <td>23/09/2000</td>
-                        </tr>
-                        <tr>
-                          <th scope="row"><img src="/static/img/avatar.png" class="tbl_img" alt=""></th>
-                          <td><a href="#">Jacob</a></td>
-                          <td>Thornton</td>
-                          <td>Dummy</td>
-                          <td>23/09/2000</td>
-                        </tr>
-                        <tr>
-                          <th scope="row"><img src="/static/img/avatar.png" class="tbl_img" alt=""></th>
                           <td><a href="#">Larry</a></td>
                           <td>the Bird</td>
                           <td>Dummy</td>
                           <td>23/09/2000</td>
                         </tr>
+                        {% for u in allusers %}
+                        <tr>
+                          <!-- <th scope="row"><img src="/static/img/avatar.png" class="tbl_img" alt=""></th> -->
+
+                          <th scope="row"><img src="/static/images/{{u.profileimage}}" class="tbl_img img-fluid" style="width: 90px;" alt="" ></th>
+                          <!-- <td>"/static/images/{{u.profileimage}}"</td> -->
+                          <!-- C:\Users\sher\Desktop\stepIn\django\register\media\images -->
+                          <!-- <th scope="row"><img src="{{BASE_DIR}}/{{u.profileimage}}" class="tbl_img" alt=""></th> -->
+                          <!-- <td>{{u.profileimage}}</td> -->
+                          <td><a href="#">{{u.username}}</a></td>
+                          <td>{{u.department}}</td>
+                          <td>{{u.designation}}</td>
+                          <td>{{u.date_joined}}</td>
+                        </tr>
+                        {% endfor %}
                       </tbody>
                     </table>
                   </div>

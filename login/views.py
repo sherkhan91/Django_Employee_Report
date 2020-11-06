@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirec
 
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import AuthenticationForm
-from .models import ProfileImage
+from .models import profileimage
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
 from .forms import UserReport
@@ -13,44 +13,30 @@ import json
 from datetime import datetime
 from .forms import ProfileForm
 import time
-
+from django.core.files.storage import FileSystemStorage
+from .forms import profileimageform
+from .forms import EmployeeForm
 # Create your views here.
 
-def profileimage(request):
-    form = ProfileImage()
+
+
+def profileimg(request):
+   
+    if request.method == "POST":
+        myprofileform = profileimageform(request.POST, request.FILES)
+        # print("data is:", request.POST)
+        if myprofileform.is_valid():
+            # print("form is valid")
+            # print(form.POST)
+            # mprofile = myprofileform.cleaned_data["name"]
+            # mprofile = myprofileform.cleaned_data["profile_image"]
+            myprofileform.save()
+        else:
+            # print("invalid.........")
+            pass
+    form = profileimageform()
     return render(request, 'profileimage.html',{'form':form})
 
-def admin_addemployee(request):
-    if request.method == "POST":
-        form = ProfileForm(request.POST)
-        data = request.POST
-        print(data)
-
-        if form.is_valid():
-            print("yes form is valid")
-            # form.save()
-            # time.sleep(10)
-            uname =  form['username'].value()
-            print("here is the user name from original table: -----",uname)
-            department =  form['department'].value()
-            designation =  form['designation'].value()
-            myimage = form.cleaned_data.get('image')
-            print("berofre im here")
-            uid = User.objects.get(username=uname).pk
-            print("here is the uid: ----",uid)
-            print("After im here")
-            obj = Employee.objects.get(user_id=uid)
-            print("okay finally got the user id--------", uid)
-            obj.department =  department
-            obj.designation = designation
-            obj.image = myimage
-            obj.save()
-            # messages.success(request, "employee account has been successfully created")
-        else:
-            print("Sorry form is invalid")
-    else:
-        form =  ProfileForm()
-    return render(request,'addemployee.html',{'form':form})
 
 
 def index(request):
@@ -207,7 +193,7 @@ def admin_home(request):
         yesterday = '2020-10-22'
         choosedate = '2020-10-26'
         todaysDate      = datetime.today().strftime('%Y-%m-%d')
-        print('todays date:',todaysDate)  # get todays date
+        # print('todays date:',todaysDate)  # get todays date
         entry =  UserReportModel.objects.filter(date=choosedate).filter(time__range=['09:00[:00[.232323]]','23:10[:00[.232323]]'])
         # entry =  UserReportModel.objects.filter(date=yesterday).filter(time__range=['14:00[:00[.232323]]','23:10[:00[.232323]]'])
         # entry =  UserReportModel.objects.filter(date=datetime.date(datetime.now())).filter(time__range=['14:00[:00[.232323]]','23:10[:00[.232323]]'])
@@ -223,7 +209,7 @@ def admin_home(request):
             pnames.append(entry[i].name)
             ptimes.append(str(entry[i].time))
             pdescriptions.append(entry[i].description)
-            print(i,entry[i].user, entry[i].name, entry[i].description, entry[i].date, entry[i].time)
+            # print(i,entry[i].user, entry[i].name, entry[i].description, entry[i].date, entry[i].time)
     
         detaillist = json.dumps([users,pnames,ptimes,pdescriptions])
         context = {'users':users,'pnames':pnames,'pdescriptions':pdescriptions,'ptimes':ptimes}
@@ -271,9 +257,50 @@ def admin_users(request):
     if not request.user.is_authenticated:
         return redirect('index')
     elif request.user.is_superuser==True:
-        return render(request,'admin_users.html')
+        userdata = {}
+        ids = []
+        empids = []
+        users = User.objects.values('id','username','date_joined')
+        for x in users:
+            ids.append(x['id'])
+ 
+        allemployees = Employee.objects.filter(empuser__in=ids).values('department','designation','profileimage','empuser')
+        for y in allemployees:
+            empids.append(y['empuser'])
+
+        allusers = User.objects.values('id','username','date_joined').filter(id__in=empids)
+
+        for i in range(len(allusers)):
+            allusers[i]['department'] = allemployees[i]['department']
+            allusers[i]['designation'] = allemployees[i]['designation']
+            allusers[i]['profileimage'] =allemployees[i]['profileimage']
+            
+        return render(request,'admin_users.html',{'allusers':allusers})
     else:
         return redirect('logout')
+
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='index')
+def admin_addemployee(request):
+    profile =  ProfileForm()
+    employee = EmployeeForm()
+    if request.method == "POST":
+        myprofile = ProfileForm(request.POST)
+        myemployee = EmployeeForm(request.POST, request.FILES)
+        print(request.POST)
+        if myprofile.is_valid() and myemployee.is_valid():
+            myprofile.save()
+            userid =  User.objects.get(username=myprofile['username'].value()).pk
+            img = myemployee['profileimage'].value()
+            p1 =  Employee(department=myemployee['department'].value(),designation=myemployee['designation'].value(),profileimage=img, empuser=userid)
+            p1.save()
+            # myemployee.profileimage = myemployee['profileimage']
+            # myemployee.save()
+        else:
+            pass
+        
+    return render(request,'addemployee.html',{'profileform':profile,'employeeform':employee})
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)

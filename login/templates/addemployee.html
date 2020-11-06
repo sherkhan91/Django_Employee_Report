@@ -102,7 +102,7 @@
                       
                       <div class="user_forms-signup">
                        
-                      <form action="" method="POST" class="forms_form" enctype="multipart/form-data">
+                      <form method="POST" class="forms_form" name="form" id="form" enctype="multipart/form-data">
                       {% csrf_token %}
                       {% if form.subject.erros %}
                       <ol role="alertdialog">
@@ -120,7 +120,42 @@
                       <!-- {{ fm.label_tag }}{{ fm }}{{ fm.errors|striptags }}<br> <br> -->
                       
                           <fieldset class="forms_fieldset">
-                      {% for field in form %}
+                            {% for field in profileform %}
+                            <!-- <div class="forms_field"> 
+                            <div class="fieldWrapper forms_field-input" aria-required={% if field.field.required %}"true" {% else %}"false"{% endif %}>
+                              {{ field.label_tag}}{% if field.field.required %} <span class="required">*</span>{% endif %}
+                              {{field}}{{field.field.placeholder}}{{field.errors|striptags }}
+                            </div>
+                          </div> -->
+                
+                          <div class="forms_field">
+                            
+                            <!-- <span class="required">*</span> -->
+                              
+                            <input 
+                            
+                              type="{{field.field.widget.input_type}}"
+                              class="forms_field-input fieldWrapper"
+                              name="{{field.name}}"
+                            
+                              id="id_{{field.name}}"
+                           
+                            
+                              {% if field.field.required %}
+                              placeholder="{{field.label}}: required"
+                              {% elif field.name == 'Datejoined' %}
+                              placeholder="{{field.label}}: yyyy/mm/dd"
+                              {% else %}
+                              placeholder="{{field.label}}"
+                              {% endif %}
+                            >
+                            {{field.errors|striptags}}
+                          </div>
+                
+                
+                        {% endfor %}
+                
+                      {% for field in employeeform %}
                           <!-- <div class="forms_field"> 
                           <div class="fieldWrapper forms_field-input" aria-required={% if field.field.required %}"true" {% else %}"false"{% endif %}>
                             {{ field.label_tag}}{% if field.field.required %} <span class="required">*</span>{% endif %}
@@ -129,14 +164,16 @@
                         </div> -->
               
                         <div class="forms_field">
-                          
-                          <!-- <span class="required">*</span> -->
                             
                           <input 
+                          
                             type="{{field.field.widget.input_type}}"
+                            
                             class="forms_field-input fieldWrapper"
                             name="{{field.name}}"
+                          
                             id="id_{{field.name}}"
+                         
                           
                             {% if field.field.required %}
                             placeholder="{{field.label}}: required"
