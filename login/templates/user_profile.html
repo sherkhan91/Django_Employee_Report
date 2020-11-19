@@ -24,7 +24,7 @@
       <!-- Sidebar -->
       <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand" href="index.html">
+        <a class="sidebar-brand">
           <div class="sidebar-brand-icon">
             <img src="/static/img/logo.png" alt="logo" class="img-fluid">
           </div>
@@ -32,9 +32,10 @@
         </a>
         <a class="sidebar-brand p-0" href="#">
           <div class="sidebar-brand-icon">
-            <img src="/static/img/avatar.png" alt="logo" class="img-fluid main_img">
+            <img src="/static/images/{{userimage}}" alt="logo" class="img-fluid main_img">
+
           </div>
-          <div class="sidebar-brand p-0 mb-3"> Admin Name </div>
+          <div class="sidebar-brand p-0 mb-3"> {{name}}</div>
         </a>
         
         <!-- Nav Item - Dashboard -->
@@ -45,11 +46,12 @@
               <span>Reports</span></a>
             </li>
         
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fa fa-commenting"></i>
               <span>Feedback</span></a>
-            </li>
+            </li> -->
+
             <li class="nav-item active">
               <a class="nav-link" href="user_profile">
                 <i class="fa fa-users"></i>
@@ -74,9 +76,9 @@
                       <h1 class="wlcome_text"><span>Profile</span></h1>
                     </div>
                     <div class="col-md-6 col-lg-8 text-right custom_algn">             
-                      <div class="input-search">
+                      <!-- <div class="input-search">
                         <span> <input type="text" placeholder="Search for Reports..." name=""> <a href=""> <i class="fas fa-search"></i></a> </span>
-                      </div>
+                      </div> -->
                       <!-- <div class="bell_icon">
                         <i class="fa fa-bell-o"></i>
                       </div> -->
@@ -89,7 +91,7 @@
                     </div>
                   </div>
                   <!-- Content Row -->
-
+                 
             <div class="page-content page-container" id="page-content">
                 <div class="padding">
                     <div class="row container d-flex justify-content-center">
@@ -98,9 +100,10 @@
                                 <div class="row m-l-0 m-r-0">
                                     <div class="col-sm-4 bg-c-lite-green user-profile">
                                         <div class="card-block text-center text-white">
-                                            <div class="m-b-25"> <img src="/static/img/avatar.png" class="img-radius" alt="User-Profile-Image"> </div>
+                                            <div class="m-b-25"> <img src="/static/images/{{userimage}}" class="img-radius img-fluid" alt="User-Profile-Image"> </div>
+                                           
                                             <h6 class="f-w-600">{{name}}</h6>
-                                            <p>Web Designer</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                            <p>{{employeedetails.designation}}</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                                         </div>
                                     </div>
                                     <div class="col-sm-8">
@@ -123,14 +126,14 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <p class="m-b-10 f-w-600">Designation</p>
-                                                    <h6 class="text-muted f-w-400">Designer</h6>
+                                                    <h6 class="text-muted f-w-400">{{employeedetails.designation}}</h6>
                                                 </div>
                                             </div>
                                                 
                                         </div>
-                                        <div class="edit_btn">
+                                        <!-- <div class="edit_btn">
                                           <a href="{% url 'user_editprofile' %}" class="btn btn-primary">Edit</a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

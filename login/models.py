@@ -4,6 +4,13 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 # Create your models here.
 
+
+class Leaves(models.Model):
+    username = models.CharField(max_length=100)
+    reason = models.CharField(max_length=1000)
+    date = models.DateField(max_length=500)
+    time = models.TimeField()
+
 class Employee(models.Model):
     # user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='employee')
     empuser = models.CharField(max_length=100, editable=False)

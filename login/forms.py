@@ -6,8 +6,13 @@ from django.forms import ModelForm
 
 from django import forms
 from .models import Employee
-from .models import profileimage
+from .models import profileimage,Leaves
 
+
+class leaveform(ModelForm):
+    class Meta:
+        model = Leaves
+        fields = '__all__'
 
 # class ProfileImage(ModelForm):
 class profileimageform(ModelForm):
